@@ -1,0 +1,35 @@
+3)
+El programa Factorial.asm calcula el factorial de un número que se ingresa por consola. 
+Al ensamblarlo en MARS se ve que usa syscall para leer el número y para imprimir el resultado. 
+También se detectan pseudoinstrucciones:
+- li $v0, 5 → en realidad addi $v0, $zero, 5
+- move $t0, $v0 → se traduce como addu $t0, $v0, $zero
+- li $v0, 1 → en realidad addi $v0, $zero, 1
+- ble $t0, 1, fin → se traduce con slt y beq/bne
+
+El algoritmo hace un bucle multiplicando acumulativamente desde el número ingresado 
+hasta llegar a 1. El resultado se va guardando en un registro.
+
+Diagrama de flujo
+Inicio → leer n → 
+si n <= 1 → resultado = 1 → imprimir resultado → fin
+si no:
+   resultado = 1
+   mientras n > 1:
+      resultado = resultado * n
+      n = n - 1
+   fin mientras
+   imprimir resultado
+→ fin
+
+Pseudocódigo
+leer n
+if n <= 1:
+resultado = 1
+else:
+resultado = 1
+while n > 1:
+resultado = resultado * n
+n = n - 1
+imprimir resultado
+fin
