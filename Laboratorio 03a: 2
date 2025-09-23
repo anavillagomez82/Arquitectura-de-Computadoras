@@ -1,25 +1,35 @@
 2)
 Observaciones
-El programa Suma.asm pide dos números por consola, los suma y luego muestra el resultado. 
-En MARS se ve que usa la instrucción syscall para leer enteros y para imprimir. 
-También aparecen pseudoinstrucciones que el ensamblador traduce:
-- li $v0, 5 → se traduce como addi $v0, $zero, 5
-- move $t0, $v0 → se traduce como addu $t0, $v0, $zero
-- li $v0, 1 → se traduce como addi $v0, $zero, 1
+El programa Upcase.asm recibe una cadena de texto ingresada por el usuario 
+y convierte las letras minúsculas a mayúsculas. 
+Al ensamblar en MARS se observa que usa syscall para leer la cadena (servicio 8) 
+y para imprimir la nueva cadena (servicio 4). 
+También se usan comparaciones para verificar si un carácter está en el rango de 
+‘a’ a ‘z’ y, si lo está, se resta 32 en ASCII para obtener la versión en mayúscula.
 
-Se comprueba que al correrlo, los registros cambian de acuerdo con la entrada y la suma se guarda 
-en un registro temporal antes de imprimir.
+Pseudoinstrucciones detectadas:
+- li $v0, 8 → se traduce como addi $v0, $zero, 8
+- li $v0, 4 → se traduce como addi $v0, $zero, 4
+- move $t0, $a0 → se traduce como addu $t0, $a0, $zero
+- bge, ble, blt → se traducen con slt + branch (igual que en Fibonacci)
+
+En ejecución se puede observar que el programa recorre cada carácter de la cadena 
+y modifica solo los que son letras minúsculas, dejando los demás sin cambios.
 
 Diagrama de flujo
-Inicio → pedir primer número → guardar en a
-→ pedir segundo número → guardar en b
-→ calcular suma = a + b
-→ imprimir suma
-→ terminar
+Inicio → leer cadena → 
+recorrer caracteres uno por uno:
+   si carácter >= 'a' y carácter <= 'z':
+       carácter = carácter - 32
+   avanzar al siguiente carácter
+repetir hasta fin de cadena
+→ imprimir cadena modificada
+→ fin
 
 Pseudocódigo
-leer a
-leer b
-suma = a + b
-imprimir suma
+leer cadena
+para cada carácter c en la cadena:
+if c >= 'a' and c <= 'z':
+c = c - 32
+imprimir cadena
 fin
