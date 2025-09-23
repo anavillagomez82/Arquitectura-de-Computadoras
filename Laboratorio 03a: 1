@@ -1,0 +1,32 @@
+1.
+Observaciones
+Al probar el programa en MARS se ve que genera la serie de Fibonacci e imprime los valores uno por uno. 
+Cuando se compara el código fuente con el ensamblado real aparecen diferencias porque varias 
+pseudoinstrucciones se convierten en instrucciones verdaderas de MIPS. 
+Por ejemplo:
+- li $t0, 10 → en realidad se usa addi $t0, $zero, 10
+- move $t1, $t2 → se cambia por addu $t1, $t2, $zero
+- blt $t1, $t2, L → se cambia por slt $at, $t1, $t2 y luego bne $at, $zero, L
+- bge $t1, $t2, L → se cambia por slt $at, $t1, $t2 y luego beq $at, $zero, L
+
+También se nota que con syscall se hace la impresión de los números.
+
+Diagrama de flujo
+Inicio → poner a=0 y b=1 → imprimir a → mientras no se llegue al límite:
+   imprimir b
+   t = a + b
+   a = b
+   b = t
+fin → terminar
+
+Pseudocódigo
+a = 0
+b = 1
+n = cantidad de términos
+imprimir a
+para i = 1 hasta n-1 hacer
+   imprimir b
+   t = a + b
+   a = b
+   b = t
+fin para
