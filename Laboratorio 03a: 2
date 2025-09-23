@@ -1,0 +1,25 @@
+2)
+Observaciones
+El programa Suma.asm pide dos números por consola, los suma y luego muestra el resultado. 
+En MARS se ve que usa la instrucción syscall para leer enteros y para imprimir. 
+También aparecen pseudoinstrucciones que el ensamblador traduce:
+- li $v0, 5 → se traduce como addi $v0, $zero, 5
+- move $t0, $v0 → se traduce como addu $t0, $v0, $zero
+- li $v0, 1 → se traduce como addi $v0, $zero, 1
+
+Se comprueba que al correrlo, los registros cambian de acuerdo con la entrada y la suma se guarda 
+en un registro temporal antes de imprimir.
+
+Diagrama de flujo
+Inicio → pedir primer número → guardar en a
+→ pedir segundo número → guardar en b
+→ calcular suma = a + b
+→ imprimir suma
+→ terminar
+
+Pseudocódigo
+leer a
+leer b
+suma = a + b
+imprimir suma
+fin
