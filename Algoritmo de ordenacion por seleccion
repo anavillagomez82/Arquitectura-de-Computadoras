@@ -92,3 +92,21 @@ max_loop:
 max_end:
         jr $ra
 
+PSEUDOCODIGO:
+para i = 0 hasta n-1:
+    (max_val, pos) = max(array, i, n)
+    intercambiar array[i] con array[pos]
+fin
+imprimir array
+
+procedimiento max(array, i, n):
+    max_val = array[i]
+    pos = i
+    para j = i+1 hasta n-1:
+        si array[j] > max_val:
+            max_val = array[j]
+            pos = j
+    fin
+    retornar (max_val, pos)
+
+
