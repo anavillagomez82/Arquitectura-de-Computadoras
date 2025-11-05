@@ -1,4 +1,4 @@
-Demostración (código MIPS):
+Demostración (MIPS):
 
 Igual (=) y distinto (≠): ya están soportadas por hardware:
 
@@ -49,4 +49,31 @@ j L
 skip:
 
 
-Conclusión: con slt, beq, bne y bltz (instrucciones disponibles por hardware) se implementan por software todas las comparaciones solicitadas. Por tanto no se requiere modificar la lógica de la CPU.
+Conclusión: con slt, beq, bne y bltz se implementan por software todas las comparaciones solicitadas. Por tanto no se requiere modificar la lógica de la CPU.
+
+Macros/Snippets para expansion:
+
+# bgt rs, rt, label   ; branch if rs > rt
+# Expansión:
+slt $at, $rt, $rs
+bne $at, $zero, label
+
+# bge rs, rt, label   ; branch if rs >= rt
+# Expansión:
+slt $at, $rs, $rt
+beq $at, $zero, label
+
+# ble rs, rt, label   ; branch if rs <= rt
+# Expansión:
+slt $at, $rt, $rs
+beq $at, $zero, label
+
+# blez rs, label      ; branch if rs <= 0
+# Expansión (opción A):
+beq $rs, $zero, label
+bltz $rs, label
+
+# bnez rs, label      ; branch if rs != 0
+# Expansión:
+bne $rs, $zero, label
+
